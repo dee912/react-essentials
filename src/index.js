@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 
-const [, , light] = ["boots", "tent", 'headlamp']
-console.log(light)
+// const [, , light] = ["boots", "tent", 'headlamp']
+// console.log(light)
 
-ReactDOM.render(<App authorized={true}/>,document.getElementById('root'));
+ReactDOM.render(<App />,document.getElementById('root'));
