@@ -14,10 +14,22 @@ function App({ login }) {
   }, [login])
 
   if (user) {
-    return <div>{JSON.stringify(user)}</div>
+    return (
+      <div>
+        { user &&
+        <>
+          <h1>{user.name}</h1>
+          <p>{user.location}</p>
+          <img rc={user.avatar_url} alt={user.login}/>
+        </>
+        }
+      </div>
+    )
   }
 
-  return <div>No User Available</div>
+  return (
+    <div>No user</div>
+  )
   
 }
 
