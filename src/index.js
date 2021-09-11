@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-
 // const [, , light] = ["boots", "tent", 'headlamp']
 // console.log(light)
 
-ReactDOM.render(<App login='dee912'/>,document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
