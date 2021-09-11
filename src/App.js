@@ -4,31 +4,45 @@ import './App.css'
 
 function App({ login }) {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (!login) return
+    setLoading(true)
     const getData = async () => {
-      const { data } = await axios.get(`https://api.github.com/users/${login}`)
-      setUser(data)
+      try {
+        const { data } = await axios.get(`https://api.github.com/users/${login}`)
+        setUser(data)
+        setLoading(false)
+      } catch (error) {
+        setError(error)
+      }
     }
     getData()
   }, [login])
 
-  if (user) {
-    return (
-      <div>
-        { user &&
-        <>
-          <h1>{user.name}</h1>
-          <p>{user.location}</p>
-          <img rc={user.avatar_url} alt={user.login}/>
-        </>
+  return (
+    <div>
+        { 
+          user ?
+          <>
+            <h1>{user.name}</h1>
+            <p>{user.location}</p>
+            <img src={user.avatar_url} alt={user.login}/>
+          </>
+          :
+          null
+        }
+        {
+          loading &&
+          <h1>Loading...</h1>
+        }
+        {
+          error &&
+          <pre>{JSON.stringify(error, null, 2)}</pre>
         }
       </div>
-    )
-  }
-
-  return (
-    <div>No user</div>
   )
   
 }
