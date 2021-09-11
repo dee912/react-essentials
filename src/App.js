@@ -1,22 +1,23 @@
-import React, { useReducer } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './App.css'
 
-function App() {
-  const [checked, toggle] = useReducer(
-    checked => !checked,
-    false
-  )
+function App({ login }) {
+  const [user, setUser] = useState(null)
 
-  return (
-    <>
-      <input 
-      type='checkbox'
-      value={checked}
-      onChange={toggle}
-    />
-    <p>{checked ? 'checked' : 'not checked'}</p>
-    </>
-  )
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get(`https://api.github.com/users/${login}`)
+      setUser(data)
+    }
+    getData()
+  }, [login])
+
+  if (user) {
+    return <div>{JSON.stringify(user)}</div>
+  }
+
+  return <div>No User Available</div>
   
 }
 
